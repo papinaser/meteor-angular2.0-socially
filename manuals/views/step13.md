@@ -285,7 +285,7 @@ Creating a pagination component is not a trivial task and not one of the primary
 so we are going to make use of an already existing package with Angular 2 pagination components.
 Run the following line to add this package:
 
-    $ meteor npm install ng2-pagination --save
+    $ meteor npm install ngx-pagination --save
 
 > This package's pagination mark-up follows the structure of
 > the [Bootstrap pagination component](http://getbootstrap.com/components/#pagination),
@@ -295,7 +295,7 @@ Run the following line to add this package:
 > It misses a lot of features that would be quite useful
 > in the real world, for example, custom templates.
 
-Ng2-Pagination consists of three main parts:
+Ngx-Pagination consists of three main parts:
 
 - pagination controls that render a list of links
 - a pagination service to manipulate logic programmatically
@@ -313,7 +313,7 @@ First, let's import the pagination module into our `NgModule`:
  ┊3┊3┊import { FormsModule, ReactiveFormsModule } from '@angular/forms';
  ┊4┊4┊import { RouterModule } from '@angular/router';
  ┊5┊5┊import { AccountsModule } from 'angular2-meteor-accounts-ui';
-+┊ ┊6┊import { Ng2PaginationModule } from 'ng2-pagination';
++┊ ┊6┊import { NgxPaginationModule } from 'ngx-pagination';
  ┊6┊7┊
  ┊7┊8┊import { AppComponent } from './app.component';
  ┊8┊9┊import { routes, ROUTES_PROVIDERS } from './app.routes';
@@ -325,7 +325,7 @@ First, let's import the pagination module into our `NgModule`:
  ┊16┊17┊    RouterModule.forRoot(routes),
 -┊17┊  ┊    AccountsModule
 +┊  ┊18┊    AccountsModule,
-+┊  ┊19┊    Ng2PaginationModule
++┊  ┊19┊    NgxPaginationModule
  ┊18┊20┊  ],
  ┊19┊21┊  declarations: [
  ┊20┊22┊    AppComponent,
@@ -344,7 +344,7 @@ Let's define the configuration:
  ┊3┊3┊import { Subject } from 'rxjs/Subject';
  ┊4┊4┊import { Subscription } from 'rxjs/Subscription';
  ┊5┊5┊import { MeteorObservable } from 'meteor-rxjs';
-+┊ ┊6┊import { PaginationService } from 'ng2-pagination';
++┊ ┊6┊import { PaginationService } from 'ngx-pagination';
  ┊6┊7┊
  ┊7┊8┊import 'rxjs/add/operator/combineLatest';
  ┊8┊9┊
@@ -368,7 +368,7 @@ Let's define the configuration:
  ┊58┊63┊    });
  ┊59┊64┊
 +┊  ┊65┊    this.paginationService.register({
-+┊  ┊66┊      id: this.paginationService.defaultId,
++┊  ┊66┊      id: this.paginationService.defaultId(),
 +┊  ┊67┊      itemsPerPage: 10,
 +┊  ┊68┊      currentPage: 1,
 +┊  ┊69┊      totalItems: 30,
@@ -393,7 +393,7 @@ We need to notify the pagination that the current page has been changed, so let'
  ┊49┊49┊        sort: { name: nameOrder as number }
  ┊50┊50┊      };
  ┊51┊51┊
-+┊  ┊52┊      this.paginationService.setCurrentPage(this.paginationService.defaultId, curPage as number);
++┊  ┊52┊      this.paginationService.setCurrentPage(this.paginationService.defaultId(), curPage as number);
 +┊  ┊53┊
  ┊52┊54┊      if (this.partiesSub) {
  ┊53┊55┊        this.partiesSub.unsubscribe();
